@@ -68,9 +68,9 @@ $Webhook = @{
                 name = "Build Information"
                 value = 
                 '```
-Number     -   {0}
-Workflow   -   {1}
-Sha        -   {2}```' -f $Context.run_number, $Context.workflow, $Context.sha
+Number     -    {0}
+Workflow   -    {1}
+Sha        -    {2}```' -f $Context.run_number, $Context.workflow, $Context.sha
             }
             @{
                 name = "$FieldName"
@@ -90,5 +90,7 @@ Sha        -   {2}```' -f $Context.run_number, $Context.workflow, $Context.sha
 }
 
 $Json = ConvertTo-Json $Webhook -Depth 100
+Write-Output $Json
+
 Invoke-RestMethod -Uri "$WebhookUrl" -Method "POST" -UserAgent "GitHub Actions" `
   -ContentType "application/json" -Header @{"X-Author"="Yucked"} -Body $Json
