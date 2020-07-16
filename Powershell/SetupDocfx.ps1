@@ -1,4 +1,4 @@
-$Repo = $env:GITHUB_REPOSITORY -split '/'
+$Repo = $env:REPO -split '/'
 $RepoName = $Repo[1]
 
 Write-Output 'Downloading latest release of docfx ...'
@@ -16,11 +16,11 @@ Write-Output 'Extracting docfx.zip to docfx ...'
 Expand-Archive ./docfx.zip -DestinationPath ./docfx
 
 Write-Output 'Setting docfx variable ..'
-Set-Variable docfx 'docfx/'
+$env:Path += ";/home/runner/work/docfx/"
 
-Write-Output 'Copying $($Repo)'
+Write-Output "Copying $($Repo)"
 Copy-Item $RepoName 'Pages'
 
 Write-Output 'Building docs ...'
-cd '$($RepoName)/docs'
+cd 'docs'
 docfx build
