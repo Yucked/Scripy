@@ -1,6 +1,7 @@
-$Repo = $env:REPO -split '/'
+$Repo = ${env:REPO} -split '/'
 $RepoName = $Repo[1]
 
+Write-Output dir
 Write-Output 'Downloading latest release of docfx ...'
 $response = Invoke-RestMethod -Uri 'https://api.github.com/repos/dotnet/docfx/releases'
 $latest = $response[0].assets
