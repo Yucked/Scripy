@@ -1,3 +1,6 @@
+$Repo = $env:REPO -split '/'
+$RepoName = $Repo[1]
+
 Write-Output 'Downloading latest release of docfx ...'
 $response = Invoke-RestMethod -Uri 'https://api.github.com/repos/dotnet/docfx/releases'
 $latest = $response[0].assets
@@ -14,10 +17,10 @@ Expand-Archive ./docfx.zip -DestinationPath ./docfx
 
 Write-Output 'Setting docfx variable ..'
 Set-Variable docfx 'docfx/'
-Copy-Item 'Victoria' 'Pages'
 
-cd Victoria/docs
+Write-Output 'Copying $($Repo)'
+Copy-Item $RepoName 'Pages'
+
+Write-Output 'Building docs ...'
+cd '$($RepoName)/docs'
 docfx build
-cd Pages
-git checkout gh-pages
-rm -rf .
