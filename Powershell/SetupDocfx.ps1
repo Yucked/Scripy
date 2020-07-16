@@ -1,4 +1,4 @@
-$Repo = $env:REPO -split '/'
+$Repo = $env:GITHUB_REPOSITORY -split '/'
 $RepoName = $Repo[1]
 
 Write-Output 'Downloading latest release of docfx ...'
