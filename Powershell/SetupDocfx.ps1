@@ -22,5 +22,5 @@ Write-Output "Copying $($Repo)"
 Copy-Item $Name/$Name 'Pages'
 
 Write-Output 'Building docs ...'
-cd $Name/docs
+cd $Name/$Name/docs
 docfx build
