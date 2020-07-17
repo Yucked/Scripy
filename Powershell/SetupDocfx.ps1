@@ -19,7 +19,7 @@ Write-Output 'Setting docfx variable ..'
 $env:Path += ";/home/runner/work/docfx/"
 
 Write-Output "Copying $($Repo)"
-Copy-Item $Name 'Pages'
+Copy-Item $Name/$Name 'Pages'
 
 Write-Output 'Building docs ...'
 cd $Name/docs
