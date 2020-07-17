@@ -1,4 +1,4 @@
-$Repo = ${env:GITHUB_REPOSITORY} -split '/'
+$Repo = ${env:GITHUB_REPOSITORY} -split ' '
 $RepoName = $Repo[1]
 
 Write-Output dir
@@ -23,5 +23,5 @@ Write-Output "Copying $($Repo)"
 Copy-Item $RepoName 'Pages'
 
 Write-Output 'Building docs ...'
-cd 'docs'
+cd $RepoName/docs
 docfx build
