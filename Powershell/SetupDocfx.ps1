@@ -1,5 +1,5 @@
-$Repo = ${env:REPO} -split '/'
-$RepoName = $Repo[1]
+$Repo = ${env:GITHUB_REPOSITORY} -split '/'
+$Name = $Repo[1]
 
 Write-Output 'Downloading latest release of docfx ...'
 $response = Invoke-RestMethod -Uri 'https://api.github.com/repos/dotnet/docfx/releases'
@@ -10,7 +10,6 @@ if (!$latest) {
     return
 }
 
-
 Invoke-WebRequest $latest.browser_download_url -OutFile ./docfx.zip
 Write-Output 'Extracting docfx.zip to docfx ...'
 Expand-Archive ./docfx.zip -DestinationPath ./docfx
@@ -19,8 +18,8 @@ Write-Output 'Setting docfx variable ..'
 $env:Path += ";/home/runner/work/docfx/"
 
 Write-Output "Copying $($Repo)"
-Copy-Item $RepoName 'Pages'
+Copy-Item $Name/$Name 'Pages'
 
 Write-Output 'Building docs ...'
-cd 'docs'
+cd $Name/$Name/docs
 docfx build
